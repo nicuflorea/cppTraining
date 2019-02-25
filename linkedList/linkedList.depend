@@ -1,4 +1,10 @@
 # depslib dependency file v1.0
-1550095887 source:c:\users\nicu\desktop\c++\linkedlist\main.cpp
+1550093220 source:c:\users\nicu\desktop\c++\linkedlist\main.cpp
+	<iostream>
+
+1551032054 source:c:\users\florea\desktop\c++\linkedlist\main.cpp
+	"linkedListClasses.cpp"
+
+1551031934 c:\users\florea\desktop\c++\linkedlist\linkedlistclasses.cpp
 	<iostream>
 
