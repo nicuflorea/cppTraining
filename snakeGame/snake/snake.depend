@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1553114842 source:c:\users\nicu\desktop\cpptraining\cpptraining\snakegame\snake\main.cpp
+	"snakeGameClasses.h"
+
+1553113530 source:c:\users\nicu\desktop\cpptraining\cpptraining\snakegame\snake\snakeclasses.cpp
+	<iostream>
+
+1553113530 c:\users\nicu\desktop\cpptraining\cpptraining\snakegame\snake\snakeclasses.cpp
+	<iostream>
+
+1553115899 c:\users\nicu\desktop\cpptraining\cpptraining\snakegame\snake\snakegameclasses.h
+	"linkedListClasses.h"
+
+1553114512 c:\users\nicu\desktop\cpptraining\cpptraining\snakegame\snake\linkedlistclasses.h
+	<iostream>
+
