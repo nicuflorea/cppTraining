@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1553114842 source:c:\users\nicu\desktop\cpptraining\cpptraining\snakegame\snake\main.cpp
+1553452212 source:c:\users\nicu\desktop\cpptraining\cpptraining\snakegame\snake\main.cpp
 	"snakeGameClasses.h"
 
 1553113530 source:c:\users\nicu\desktop\cpptraining\cpptraining\snakegame\snake\snakeclasses.cpp
@@ -8,9 +8,10 @@
 1553113530 c:\users\nicu\desktop\cpptraining\cpptraining\snakegame\snake\snakeclasses.cpp
 	<iostream>
 
-1553115899 c:\users\nicu\desktop\cpptraining\cpptraining\snakegame\snake\snakegameclasses.h
+1553452567 c:\users\nicu\desktop\cpptraining\cpptraining\snakegame\snake\snakegameclasses.h
 	"linkedListClasses.h"
+	<math.h>
 
-1553114512 c:\users\nicu\desktop\cpptraining\cpptraining\snakegame\snake\linkedlistclasses.h
+1553451735 c:\users\nicu\desktop\cpptraining\cpptraining\snakegame\snake\linkedlistclasses.h
 	<iostream>
 
