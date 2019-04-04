@@ -5,15 +5,17 @@ class node{
 public:
    int iData;
    int x,y;
+   bool bDot;
    char c;
    node* next;
    node()
    {
       iData = 0;
-      x = 0;
-      y = 0;
-      c = ' ';
-      next = NULL;
+      x     = 0;
+      y     = 0;
+      bDot  = false;
+      c     = ' ';
+      next  = NULL;
       return;
     }
 };
