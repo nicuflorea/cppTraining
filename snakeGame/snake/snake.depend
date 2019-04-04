@@ -15,10 +15,10 @@
 1553451735 c:\users\nicu\desktop\cpptraining\cpptraining\snakegame\snake\linkedlistclasses.h
 	<iostream>
 
-1554292406 source:c:\users\florea\desktop\cpptaining\cpptraining\snakegame\snake\main.cpp
+1554395954 source:c:\users\florea\desktop\cpptaining\cpptraining\snakegame\snake\main.cpp
 	"snakeGameClasses.h"
 
-1554292921 c:\users\florea\desktop\cpptaining\cpptraining\snakegame\snake\snakegameclasses.h
+1554398969 c:\users\florea\desktop\cpptaining\cpptraining\snakegame\snake\snakegameclasses.h
 	"linkedListClasses.h"
 	<math.h>
 	<windows.h>
@@ -29,7 +29,8 @@
 	<dos.h>
 	<stdlib.h>
 	<graphics.h>
+	<cstdlib>
 
-1554285260 c:\users\florea\desktop\cpptaining\cpptraining\snakegame\snake\linkedlistclasses.h
+1554374439 c:\users\florea\desktop\cpptaining\cpptraining\snakegame\snake\linkedlistclasses.h
 	<iostream>
 

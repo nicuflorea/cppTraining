@@ -1,49 +1,55 @@
 #include "snakeGameClasses.h"
 int main()
 {
-   char x;
-   snakeArea sArea(50,20);
+   snakeArea sArea(30,30);
    sArea.setArea();
    sArea.printArea();
-
+   char x,prevx,direction;
+   int ndelay = 100;
    while(true)
    {
-      x = getch();
-      if (x == 72)
+      if (kbhit())
       {
-         sArea.moveDot(true, false, false, false);
-         system("CLS");
+         x = getch();
       }
-      else if (x == 80)
+      if (x != prevx)
       {
-         sArea.moveDot(false, true, false, false);
-         system("CLS");
-      }
-      else if (x == 75)
-      {
-         sArea.moveDot(false, false, false, true);
-         system("CLS");
-      }
-      else if (x == 77)
-      {
-         sArea.moveDot(false, false, true, false);
-         system("CLS");
-      }
-      else if (x == ' ')
-      {
-          break;
+          direction = x;
+          ndelay = 0.01;
       }
       else
       {
-          system("CLS");
+         ndelay = 100;
       }
+      if (direction == KEY_UP)
+      {
+         sArea.moveDot(false, true, false, false);
+      }
+      else if (direction == KEY_DOWN)
+      {
+         sArea.moveDot(true, false, false, false);
+      }
+      else if (direction == KEY_LEFT)
+      {
+         sArea.moveDot(false, false, true, false);
+      }
+      else if (direction == KEY_RIGHT)
+      {
+         sArea.moveDot(false, false, false, true);
+      }
+      else if (x == ' ')
+      {
+          sArea.moveDot(false, false, false, false);
+      }
+      else if (x == KEY_END)
+      {
+          break;
+      }
+      delay(ndelay);
       sArea.printArea();
-      //x = '0';
+      prevx = x;
    }
 
-
-
-
-
+   closegraph();
    return 0;
 }
