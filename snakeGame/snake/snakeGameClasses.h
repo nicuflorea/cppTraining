@@ -46,8 +46,7 @@ void snakeArea::printArea(){
    while (current != listHead){
 	   if (current->x == 0)
 	   {
-         printf("%c",current->c);
-         //cout << current->c <<endl;
+         cout << current->c <<endl;
 		}
 		else
 		{
