@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1554657882 source:c:\users\nicu\desktop\cpptraining\cpptraining\sudoku\main.cpp
+	"sudokuClasses.h"
+
+1554664068 c:\users\nicu\desktop\cpptraining\cpptraining\sudoku\sudokuclasses.h
+	<iostream>
+
