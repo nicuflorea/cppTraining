@@ -61,7 +61,7 @@ void snakeArea::printArea(){
       }
       current = current->next;
    }
-   //getch();
+   return;
 };
 
 void snakeArea::setArea(){
@@ -80,14 +80,16 @@ void snakeArea::setArea(){
    	   newNode-> y = j;
    	   newNode-> c = 'b';
    	   newNode-> bDot = false;
+         // Area borders
    	   if ((j==0) || (j==h-1) || (i==0) || (i==w-1) || ((i==fx) && (j==fy)))
    		{
-   			newNode-> c    = '*';
+   			newNode-> c = '*';
    		}
    		else
    		{
    			newNode-> c = ' ';
    		}
+         // Moving dot
    		if ((i == w/2) && (j==h/2))
          {
             newNode-> bDot = true;
@@ -103,11 +105,9 @@ void snakeArea::setArea(){
 void snakeArea::moveDot(bool up, bool down, bool left, bool right){
    node *current;
    int x,y;
-   //int fx = rand()% (w-2) + 1;
-   //int fy = rand()% (h-2) + 1;
-
    bool move = false;
-   bool genf = false;
+   
+   // find the coordinates of the moving dot
    current = listTail;
    while (current != listHead)
    {
@@ -115,8 +115,6 @@ void snakeArea::moveDot(bool up, bool down, bool left, bool right){
       {
          x = current-> x;
          y = current-> y;
-         //current-> bDot = false;
-         //current-> c = ' ';
          break;
       }
       current = current->next;
@@ -129,21 +127,26 @@ void snakeArea::moveDot(bool up, bool down, bool left, bool right){
          y = y + 1;
          current-> c = ' ';
          current-> bDot = false;
-         move =true;
+         move = true;
       }
      else
-     {y=y;}
+     {
+        y = y;
+      }
    }
    else if (down == true)
    {
-      if (y>0)
+      if (y > 0)
       {
          y = y - 1;
          current-> c = ' ';
          current-> bDot = false;
-         move =true;
+         move = true;
       }
-      else{y=y;}
+      else
+      {
+         y = y;
+       }
    }
    else if (right == true)
    {
@@ -152,24 +155,33 @@ void snakeArea::moveDot(bool up, bool down, bool left, bool right){
          x = x + 1;
          current-> c = ' ';
          current-> bDot = false;
-         move =true;
+         move = true;
       }
-      else{x=x;}
+      else
+      {
+         x = x;
+       }
    }
    else if (left == true)
    {
-      if (x>0)
+      if (x > 0)
       {
          x = x - 1;
          current-> c = ' ';
          current-> bDot = false;
          move = true;
       }
-      else{x=x;}
-
+      else
+      {
+         x = x;
+       }
    }
-
-
+   else
+   {
+      current = listTail;
+   }
+   
+   // Change dot possitions if movement detected
    if (move == true)
    {
       current = listTail;
@@ -179,14 +191,21 @@ void snakeArea::moveDot(bool up, bool down, bool left, bool right){
          {
             current-> bDot = true;
             current-> c = '*';
+            break;
          }
          current = current->next;
       }
    }
-
+   else
+   {
+      current = listTail;
+   }
+   
+   
+   
+   // Change food possition if food reached
    if((x == fx) && (y == fy))
    {
-      genf = true;
       fx = rand()% (w-2) + 1;
       fy = rand()% (h-2) + 1;
       current = listTail;
@@ -196,9 +215,14 @@ void snakeArea::moveDot(bool up, bool down, bool left, bool right){
          {
             current-> bDot = false;
             current-> c = '*';
+            break;
          }
          current = current->next;
       }
+   }
+   else
+   {
+      current = listTail;
    }
 
    return;
