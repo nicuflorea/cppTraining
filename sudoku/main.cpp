@@ -8,11 +8,11 @@ int main()
     b1.findPos(true);
     b1.findSolution();
 
-    b1.findInCell(8,0,1);
-    if (b1.findInRow(8,1) == true)
-    {
-       cout << "Value found";
-    }
+    //b1.findInCell(8,0,1);
+    //if (b1.findInRow(8,1) == true)
+    //{
+     //  cout << "Value found";
+    //}
 
 
 	//bool b = b1.findInRow(0,5);

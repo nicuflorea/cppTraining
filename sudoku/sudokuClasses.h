@@ -199,26 +199,26 @@ bool sudokuBoard::findPos(bool bSave)
 	//		}
 	//	}
 	//}
-    cout<<"**********************************"<<endl;
-    if (true)
-    {
-        for(int j=0; j < 9;j++)
-	    {
-	    	for(int i=0; i < 9;i++)
-	    	{
-	    		cout << "Solutions for row = " << i << "column = " << j << ": ";
-	    		for(int k=0; k < 9;k++)
-	    		{
-	    			if(pos[i][j][k] != 0)
-	    			{
-	    				cout << pos[i][j][k];
-	    			}
-	    		}
-	    		cout << endl;
-	    	}
-	    }
-    }
-	cout<<"**********************************"<<endl;
+    //cout<<"**********************************"<<endl;
+    //if (true)
+    //{
+    //    for(int j=0; j < 9;j++)
+	//    {
+	//    	for(int i=0; i < 9;i++)
+	//    	{
+	//    		cout << "Solutions for row = " << i << "column = " << j << ": ";
+	//    		for(int k=0; k < 9;k++)
+	//    		{
+	//    			if(pos[i][j][k] != 0)
+	//    			{
+	//    				cout << pos[i][j][k];
+	//    			}
+	//    		}
+	//    		cout << endl;
+	//    	}
+	//    }
+    //}
+	//cout<<"**********************************"<<endl;
 	return true;
 }
 
@@ -227,7 +227,8 @@ void sudokuBoard::findSolution()
 {
    bool b1 = findPos(true);
    bool b2 = false;
-   int i=0,j=0,sol =0;
+   bool bFound = false;
+   int i=0,j=0,sol =0,k=0;
 
    if (b1 == false)
    {
@@ -235,94 +236,68 @@ void sudokuBoard::findSolution()
    }
    else
    {
-        while(table[8][0] == 0)
-		{
-			b2 = false;
-			for(int k=0;k<9;k++)
-			{
-
-				cout << "tring solution " << pos[i][j][k] << " to entry i = " << i << " j = "<< j<<endl;
-				if((pos[i][j][k] != 0) && (findInRow(i,pos[i][j][k]) == false) && (findInColum(j,pos[i][j][k]) == false) && (findInCell(i,j,pos[i][j][k]) == false))
-				{
-				    cout << "tring solution " << pos[i][j][k] << " to entry i = " << i << " j = "<< j<<endl;
-					table[i][i] = pos[i][j][k];
-					b2 = true;
-					break;
-				}
-				else if((pos[i][j][k] != 0) || (findInRow(i,pos[i][j][k]) == true) || (findInColum(j,pos[i][j][k]) == true) || (findInCell(i,j,pos[i][j][k]) == true))
-				{
-
-					if(i>=1)
-					{
-					   i=i-1;
-					   for(int k=0;k<9;k++)
-					   {
-						   if(pos[i][j][k] != 0)
-						   {
-							   pos[i][j][k] = 0;
-							   break;
-						   }
-					   }
-					}
-					else
-					{
-					    cout << "plm ... " <<endl;
-						i=0;
-					}
-				}
-
-			}
-			if(b2 == true)
-			{
-			   i = i + 1;
-			}
-            i = i + 1;
-
-
-
-
-
-
-		}
-        cout << "value is " << table[8][0]<< endl;
-
-
-
-
-
-
-
-	   //  for(int j=0; j < 9;j++)
-	    //  {
-		//      for(int i=0; i < 9;i++)
-		//      {
-		//  	    for(int k=0; k < 9;k++)
-		//  	    {
-		//  	        if((pos[i][j][k] != 0) && (findInRow(i,pos[i][j][k]) == false) && (findInColum(j,pos[i][j][k]) == false) && (findInCell(i,j,pos[i][j][k]) == false))
-		//  	        {
-		//  		        table[i][j] = pos[i][j][k];
-		//  				//printBoard();
-		//  				//cout << "*******************"<<endl;
-		//  				cout << "tring solution " << pos[i][j][k] << " to entry i = " << i << " j = "<< j;
-		//  		 	    pos[i][j][k]    = 0;
-        //
-		//  	            if (findPos(false) == true)
-		//  	            {
-		//  	            	cout << " Solution fit." << endl;
-		//  					break;
-		//  	            }
-		//  	            else if (findPos(false) == false)
-		//  	            {
-		//  	            	table[i][j] = 0;
-		//  					cout << " Solution NO fit." << endl;
-		//  	            }
-        //
-		//  	        }
-		//  	    }
-		//      }
-        //
-	    //  }
-    }
+      while(j<9)
+      {
+         while(i<9)
+         {
+            k = 0; // Start searching in the solution matrix starting from index 0
+            bFound = true;
+            while((hit[i][j][k] == false) && (pos[i][j][k] == 0))
+            {
+               // put the solution inside the sudoku table
+               table[i][j]  = pos[i][j][k];
+               // can the table still be solved
+               b1 = findPos(false);
+               // if yes mark the solution as hit and go to the next cell
+               if(b1 == true)
+               {
+                  hit[i][j][k] = true;
+                  bFound       = true;
+                  break;
+               }
+               // if no try the next solution
+               else
+               {
+                   k = k + 1;
+                   bFound = false;
+               }
+            }
+            // if a solution was found and the sudoku table can still be solved, go to the next cell
+            if(bFound == true)
+            {
+                i = i + 1;
+            }
+            // if not, clear all hit flags for the current cell and reconsider the previous one
+            else
+            {
+                for(int k=0;k<9;k++)
+                {
+                    hit[i][j][k] = false;
+                }
+                i = i - 1;
+            }
+            // rescale to 9x9 matrix
+            if(i > 8)
+            {
+               i = 0;
+               j = j + 1;
+               if(j > 8)
+               {
+                  j = 8;
+               }
+            }
+            else if(i < 0)
+            {
+                i = 8;
+                j = j - 1;
+                if(j < 0)
+                {
+                    j = 0;
+                }
+            }
+         } // i
+      }   //  j
+   }
 
    printBoard();
 
