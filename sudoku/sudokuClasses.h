@@ -1,6 +1,12 @@
 #include <iostream>
 using namespace std;
 
+struct position
+{
+   int x = 0;
+   int y = 0;
+};
+
 class sudokuBoard
 {
 	public:
@@ -34,6 +40,9 @@ class sudokuBoard
 	bool findInCell(int x, int y,int f);
 	void findSolution();
 	bool findPos(bool bSave);
+   position scale(int i, int j);
+   position moveNext(int i, int j);
+   position moveBack(int i, int j);
 
 
 
@@ -58,6 +67,100 @@ void sudokuBoard::printBoard()
 		}
 		cout << endl;
 	}
+}
+
+
+position sudokuBoard::scale(int i, int j)
+{
+   position nReturn;
+   nReturn.x = 0;
+   nReturn.y = 0;
+   if(i > 8)
+   {
+      i = 0;
+      j = j + 1;
+      if(j > 8)
+      {
+         j = 8;
+      }
+   }
+   else if(i < 0)
+   {
+       i = 8;
+       j = j - 1;
+       if(j < 0)
+       {
+           j = 0;
+       }
+   }
+   nReturn.x = i;
+   nReturn.y = j;
+   return nReturn;
+}
+
+position sudokuBoard::moveNext(int i, int j)
+{
+   position nReturn;
+   nReturn.x = i;
+   nReturn.y = j;
+   bool bFound = false;
+   while(bFound == false)
+   {
+      // move back one position
+      nReturn.x = nReturn.x + 1;
+      nReturn = scale(nReturn.x,nReturn.y);
+      // search for free cells
+      if(table[nReturn.x][nReturn.y] == 0)
+      {
+         bFound = true;
+      }
+   }
+   return nReturn;
+}
+
+position sudokuBoard::moveBack(int i, int j)
+{
+   position nReturn;
+   nReturn.x = i;
+   nReturn.y = j;
+   bool bFound = false;
+   while(bFound == false)
+   {
+      for(int k = 0; k < 9;k++)
+      {
+         hit[nReturn.x][nReturn.y][k] = false;
+         if(pos[nReturn.x][nReturn.y][0] != 0)
+         {
+            table[nReturn.x][nReturn.y] = 0;
+         }
+
+      }
+      // move back one position
+      nReturn.x = nReturn.x - 1;
+      nReturn = scale(nReturn.x,nReturn.y);
+      // search for posibilities
+      for(int k = 0; k < 9;k++)
+      {
+         if((pos[nReturn.x][nReturn.y][k] != 0) && (hit[nReturn.x][nReturn.y][k] == false))
+         {
+            bFound = true;
+            break;
+         }
+      }
+      if(bFound == false)
+      {
+         for(int k = 0; k < 9;k++)
+         {
+            hit[nReturn.x][nReturn.y][k] = false;
+            if(pos[nReturn.x][nReturn.y][0] != 0)
+            {
+               table[nReturn.x][nReturn.y] = 0;
+            }
+
+         }
+      }
+   }
+   return nReturn;
 }
 
 
@@ -229,6 +332,7 @@ void sudokuBoard::findSolution()
    bool b2 = false;
    bool bFound = false;
    bool bHit = false;
+   position n;
    int i=0,j=0,sol =0,k=0;
 
    if (b1 == false)
@@ -237,107 +341,79 @@ void sudokuBoard::findSolution()
    }
    else
    {
-      while(j<9)
+      // find first free cell
+      for(int m=0;m<9;m++)
       {
-         while(i<9)
+         for(int n=0;n<9;n++)
          {
-            //k = 0; // Start searching in the solution matrix starting from index 0
-             bHit = false;
-             for(int x=0;x<9;x++)
-             {
-                if((hit[i][j][x] == false) && (pos[i][j][x] != 0))
-                {
-                    k=x;
-                    bHit = true;
-                    break;
-                }
-             }
-             if((bHit == false)&&(table[i][j]==0))
-             {
-                for(int k=0;k<9;k++)
-                {
-                    hit[i][j][k] = false;
-                }
-                i = i - 1;
-                while (pos[i][j][0] != 0)
-                {
-                    i=i-1;
-                }
-                continue;
-             }
+            if(table[n][m] == 0)
+            {
+               bFound = true;
+               i = n;
+               j = m;
+               break;
+            }
+         }
+         if(bFound == true)
+         {
+            break;
+         }
+      }
 
-            bFound = true;
-			cout << "Searching key for i = " << i << " j = " << j<<endl;
-            while((hit[i][j][k] == false) && (pos[i][j][k] != 0))
+      bFound = false;
+      while(true)
+      {
+         cout << "Searching key for i = " << i << " j = " << j<<endl;
+         // find first posible solution
+         for(int h=0;h<9;h++)
+         {
+            if((pos[i][j][h] != 0) && (hit[i][j][h] == false))
             {
-               // put the solution inside the sudoku table
-               cout<<"Tring value " << pos[i][j][k]<<endl;
-               // can the table still be solved
-               // b1 = findPos(false);
-               b1 = ((findInRow(i,pos[i][j][k]) || findInColum(j,pos[i][j][k])) || findInCell(i,j,pos[i][j][k]));
-               table[i][j]  = pos[i][j][k];
-               printBoard();
-               // if yes mark the solution as hit and go to the next cell
-               if(b1 == false)
-               {
-                  hit[i][j][k] = true;
-                  bFound       = true;
-                  cout<<"Solution " << pos[i][j][k] << " is ok."<<endl;
-                  break;
-               }
-               // if no try the next solution
-               else
-               {
-                   hit[i][j][k] = true;
-                   k = k + 1;
-                   bFound = false;
-                   table[i][j]  = 0;
-               }
+               k = h;
+               break;
             }
+         }
+         cout<<"Tring value " << pos[i][j][k]<<endl;
+         bFound = ((findInRow(i,pos[i][j][k]) || findInColum(j,pos[i][j][k])) || findInCell(i,j,pos[i][j][k]));
+         table[i][j]  = pos[i][j][k];
+         printBoard();
+         if(bFound == false)
+         {
+            hit[i][j][k] = true;
+            cout<<"Solution " << pos[i][j][k] << " is ok."<<endl;
+            n = moveNext(i,j);
+            i = n.x;
+            j = n.y;
+            //cout << "moved to i = " << i << "  j = " << j <<endl;
+         }
+         // if no try the next solution
+         else
+         {
+            // mark current solution as hit
+            hit[i][j][k] = true;
+            // go to next solution
+            k = (k + 1)%8;
+            // erase current solution
+            table[i][j]  = 0;
+            // if there is a next solution
+            if(pos[i][j][k] == 0)
+            {
+               k = 0;
+               // move back
+               n = moveBack(i,j);
+               i = n.x;
+               j = n.y;
+            }
+         }
+         if((i > 8) && (j > 8))
+         {
+            break;
+         }
+         //cin.get();
+      }   // while
 
-            // if a solution was found and the sudoku table can still be solved, go to the next cell
-            if(bFound == true)
-            {
-               i = i + 1;
-            }
-            // if not, clear all hit flags for the current cell and reconsider the previous one
-            else if(bFound == false)
-            {
-                for(int k=0;k<9;k++)
-                {
-                    hit[i][j][k] = false;
-                }
-                i=i-1;
-                while (pos[i][j][0] != 0)
-                {
-                    i=i-1;
-                }
-                table[i][j] = 0;
-            }
 
-            // rescale to 9x9 matrix
-            if(i > 8)
-            {
-               i = 0;
-               j = j + 1;
-               if(j > 8)
-               {
-                  j = 8;
-               }
-            }
-            else if(i < 0)
-            {
-                i = 8;
-                j = j - 1;
-                if(j < 0)
-                {
-                    j = 0;
-                }
-            }
-         } // i
-      }   //  j
    }
-
    printBoard();
 
 
