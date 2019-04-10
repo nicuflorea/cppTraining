@@ -183,3 +183,54 @@ void snakeArea::moveDot(bool up, bool down, bool left, bool right){
 
    return;
 };
+
+void snakeArea::keyMovement()
+{
+   char x,prevx,direction;
+   int ndelay = 100;
+   while(true)
+   {
+      if (kbhit())
+      {
+         x = getch();
+      }
+      if (x != prevx)
+      {
+          direction = x;
+          ndelay = 0.01;
+      }
+      else
+      {
+          ndelay = 100;
+      }
+      if (direction == KEY_UP)
+      {
+          moveDot(false, true, false, false);
+      }
+      else if (direction == KEY_DOWN)
+      {
+          moveDot(true, false, false, false);
+      }
+      else if (direction == KEY_LEFT)
+      {
+          moveDot(false, false, true, false);
+      }
+      else if (direction == KEY_RIGHT)
+      {
+          moveDot(false, false, false, true);
+      }
+      else if (x == ' ')
+      {
+          moveDot(false, false, false, false);
+      }
+      else if (x == KEY_END)
+      {
+          break;
+      }
+      delay(ndelay);
+      printArea();
+      prevx = x;
+   }
+
+   closegraph();
+}
