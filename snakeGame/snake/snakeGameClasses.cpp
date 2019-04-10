@@ -162,8 +162,12 @@ void snakeArea::moveDot(bool up, bool down, bool left, bool right){
    // Change food position if food reached
    if((x == fx) && (y == fy))
    {
-      fx = rand()% (w-2) + 1;
-      fy = rand()% (h-2) + 1;
+      while((x == fx)&&(y == fy))
+      {
+         fx = rand()% (w-2) + 1;
+         fy = rand()% (h-2) + 1;
+      }
+      cout<<"Creating new food at X = " << fx << " y = " << fy <<endl;
       current = listTail;
       while (current != listHead)
       {
@@ -196,8 +200,8 @@ void snakeArea::keyMovement()
       }
       if (x != prevx)
       {
-          direction = x;
-          ndelay = 0.01;
+         direction = x;
+         ndelay = 0.01;
       }
       else
       {
@@ -205,27 +209,27 @@ void snakeArea::keyMovement()
       }
       if (direction == KEY_UP)
       {
-          moveDot(false, true, false, false);
+         moveDot(false, true, false, false);
       }
       else if (direction == KEY_DOWN)
       {
-          moveDot(true, false, false, false);
+         moveDot(true, false, false, false);
       }
       else if (direction == KEY_LEFT)
       {
-          moveDot(false, false, true, false);
+         moveDot(false, false, true, false);
       }
       else if (direction == KEY_RIGHT)
       {
-          moveDot(false, false, false, true);
+         moveDot(false, false, false, true);
       }
       else if (x == ' ')
       {
-          moveDot(false, false, false, false);
+         moveDot(false, false, false, false);
       }
       else if (x == KEY_END)
       {
-          break;
+         break;
       }
       delay(ndelay);
       printArea();
@@ -233,4 +237,91 @@ void snakeArea::keyMovement()
    }
 
    closegraph();
+}
+
+void snakeArea::autoMovement()
+{
+   int dx = 0;
+   int dy = 0;
+   int fdx = 0;
+   int fdy = 0;
+   int nDelay = 20;
+   char c = 'a';
+   node *current;
+
+   // take dot coordinates
+   current = listTail;
+   while (current != listHead)
+   {
+      if (current-> bDot == true)
+      {
+         dx = current-> x;
+         dy = current-> y;
+         break;
+      }
+      current = current->next;
+   }
+
+   while(c != KEY_END)
+   {
+      // take food coordinates
+      fdx = fx;
+      fdy = fy;
+
+      for(int i = 0; i<abs(fdx-dx); i++)
+      {
+         //cin.get();
+         if(dx < fdx)
+         {
+            moveDot(false, false, false, true);
+            delay(nDelay);
+            printArea();
+         }
+         else if(fdx < dx)
+         {
+            moveDot(false, false, true, false);
+            delay(nDelay);
+            printArea();
+         }
+         else
+         {
+            moveDot(false, false, false, false);
+            break;
+         }
+
+      }
+
+      for(int i = 0; i<abs(fdy-dy); i++)
+      {
+         //cin.get();
+         if(dy < fy)
+         {
+            moveDot(true, false, false, false);
+            delay(nDelay);
+            printArea();
+         }
+         else if(fy < dy)
+         {
+            moveDot(false, true, false, false);
+            delay(nDelay);
+            printArea();
+         }
+         else
+         {
+            moveDot(false, false, false, false);
+            break;
+         }
+
+      }
+      delay(nDelay);
+      dx = fdx;
+      dy = fdy;
+      // exit
+      if (kbhit())
+      {
+         c = getch();
+      }
+   }
+   return;
+
 }

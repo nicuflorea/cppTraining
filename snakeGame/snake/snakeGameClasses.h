@@ -42,6 +42,7 @@ public:
    void setArea();
    void moveDot(bool up, bool down, bool left, bool right);
    void keyMovement();
+   void autoMovement();
 
 };
 
