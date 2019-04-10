@@ -32,8 +32,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="linkedListClasses.cpp" />
 		<Unit filename="linkedListClasses.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="snakeGameClasses.cpp" />
 		<Unit filename="snakeGameClasses.h" />
 		<Extensions>
 			<code_completion />
