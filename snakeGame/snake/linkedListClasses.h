@@ -27,22 +27,22 @@ private:
     int nodeCount;
 public:
     linkedList()
-	{
+   {
        nodeCount = 0;
        listTail  = listHead;
        return;
     }
-	~linkedList()
-	{
-		cout << "Deleting list ... " << endl;
-		node *freeNode;
-		while(listTail != listHead)
-		{
-			freeNode = listTail;
-			listTail = freeNode->next;
-			delete freeNode;
-		}
-	}
+   ~linkedList()
+   {
+      cout << "Deleting list ... " << endl;
+      node *freeNode;
+      while(listTail != listHead)
+      {
+         freeNode = listTail;
+         listTail = freeNode->next;
+         delete freeNode;
+      }
+   }
     // Function members
     void addItem(int i);
     void removeItem();
@@ -81,18 +81,18 @@ void linkedList::removeItem(int i)
    else
    {
        while (current != listHead)
-	   {
+      {
             // Value found in the first node of the list
-			if ((current->iData) == i)
-			{
-				freeNode = current;
-				listTail = current->next;
-				delete freeNode;
+         if ((current->iData) == i)
+         {
+            freeNode = current;
+            listTail = current->next;
+            delete freeNode;
                 nodeCount = nodeCount - 1;
                 return;
-			}
+         }
             else if ((current->next->iData) == i)
-	        {
+           {
              cout<< "Found match in list ... " << endl;
              // save the address of the node to be erased
              freeNode = current->next;
@@ -102,7 +102,7 @@ void linkedList::removeItem(int i)
              return;
             }
             else
-	        {
+           {
              current = current -> next;
             }
        }

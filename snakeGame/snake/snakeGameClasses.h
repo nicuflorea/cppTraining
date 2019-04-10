@@ -17,30 +17,30 @@ public:
     int h;
     int fy,fx;
 public:
-	// Constructor definition
-	snakeArea(int width, int hight)
-	{
-		w    = width;
-		h    = hight;
-		fy   = 0;
-		fx   = 0;
-		return;
-	}
-	~snakeArea()
-	{
-		cout << "Deleting area ... " << endl;
-		node *freeNode;
-		while(listTail != listHead)
-		{
-			freeNode = listTail;
-			listTail = freeNode->next;
-			delete freeNode;
-		}
-	}
+   // Constructor definition
+   snakeArea(int width, int hight)
+   {
+      w    = width;
+      h    = hight;
+      fy   = 0;
+      fx   = 0;
+      return;
+   }
+   ~snakeArea()
+   {
+      cout << "Deleting area ... " << endl;
+      node *freeNode;
+      while(listTail != listHead)
+      {
+         freeNode = listTail;
+         listTail = freeNode->next;
+         delete freeNode;
+      }
+   }
 
-	void printArea();
-	void setArea();
-	void moveDot(bool up, bool down, bool left, bool right);
+   void printArea();
+   void setArea();
+   void moveDot(bool up, bool down, bool left, bool right);
 
 };
 
@@ -73,31 +73,31 @@ void snakeArea::setArea(){
    fy = rand()% (h-2) + 1;
    for(int j = 0; j < h; j++)
    {
-   	for(int i = 0; i < w; i++)
-   	{
+      for(int i = 0; i < w; i++)
+      {
          node* newNode  = new node;
-   		newNode-> x = i;
-   	   newNode-> y = j;
-   	   newNode-> c = 'b';
-   	   newNode-> bDot = false;
+         newNode-> x = i;
+         newNode-> y = j;
+         newNode-> c = 'b';
+         newNode-> bDot = false;
          // Area borders
-   	   if ((j==0) || (j==h-1) || (i==0) || (i==w-1) || ((i==fx) && (j==fy)))
-   		{
-   			newNode-> c = '*';
-   		}
-   		else
-   		{
-   			newNode-> c = ' ';
-   		}
+         if ((j==0) || (j==h-1) || (i==0) || (i==w-1) || ((i==fx) && (j==fy)))
+         {
+            newNode-> c = '*';
+         }
+         else
+         {
+            newNode-> c = ' ';
+         }
          // Moving dot
-   		if ((i == w/2) && (j==h/2))
+         if ((i == w/2) && (j==h/2))
          {
             newNode-> bDot = true;
             newNode-> c    = '*';
          }
          newNode->next  = listTail;
          listTail       = newNode;
-   	}
+      }
    }
    return;
 };
@@ -106,7 +106,7 @@ void snakeArea::moveDot(bool up, bool down, bool left, bool right){
    node *current;
    int x,y;
    bool move = false;
-   
+
    // find the coordinates of the moving dot
    current = listTail;
    while (current != listHead)
@@ -180,8 +180,8 @@ void snakeArea::moveDot(bool up, bool down, bool left, bool right){
    {
       current = listTail;
    }
-   
-   // Change dot possitions if movement detected
+
+   // Change dot position if movement detected
    if (move == true)
    {
       current = listTail;
@@ -200,10 +200,10 @@ void snakeArea::moveDot(bool up, bool down, bool left, bool right){
    {
       current = listTail;
    }
-   
-   
-   
-   // Change food possition if food reached
+
+
+
+   // Change food position if food reached
    if((x == fx) && (y == fy))
    {
       fx = rand()% (w-2) + 1;
