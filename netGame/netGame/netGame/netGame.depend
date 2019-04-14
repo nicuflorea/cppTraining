@@ -1,0 +1,26 @@
+# depslib dependency file v1.0
+1554927495 source:c:\users\nicu\desktop\cpptraining\cpptraining\netgame\netgame\netgame\linkedlistclasses.cpp
+	"linkedListClasses.h"
+
+1555238378 c:\users\nicu\desktop\cpptraining\cpptraining\netgame\netgame\netgame\linkedlistclasses.h
+	<iostream>
+
+1555236282 source:c:\users\nicu\desktop\cpptraining\cpptraining\netgame\netgame\netgame\main.cpp
+	"netGameClasses.h"
+
+1555258856 c:\users\nicu\desktop\cpptraining\cpptraining\netgame\netgame\netgame\netgameclasses.h
+	"linkedListClasses.h"
+	<math.h>
+	<windows.h>
+	<time.h>
+	<conio.h>
+	<iostream>
+	<unistd.h>
+	<dos.h>
+	<stdlib.h>
+	<graphics.h>
+	<cstdlib>
+
+1555261948 source:c:\users\nicu\desktop\cpptraining\cpptraining\netgame\netgame\netgame\netgameclasses.cpp
+	"netGameClasses.h"
+
